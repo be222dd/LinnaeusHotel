@@ -5,6 +5,7 @@ package view;
 import javax.naming.OperationNotSupportedException;
 
 import controller.AbstractController;
+import controller.CreateReservationController;
 import controller.MainController;
 import controller.ModelAccess;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +23,13 @@ public class ViewFactory {
 	
 	private MainController mainController;
 	
+	private CreateReservationController createReservationController;
+	
 	
 	private final String DEFAULT_CSS="style.css";
 	
 	private final String MAIN_SCREEN_FXML="MainLayout.fxml";
+	private final String CREATE_RES_FXML="CreateReservationLayout.fxml";
 	
 	
 	public Scene getMainScene() throws OperationNotSupportedException{
@@ -36,6 +40,13 @@ public class ViewFactory {
 		}else{
 			throw new OperationNotSupportedException("Main Scene Already Initiliazed");
 		}
+		
+	}
+	
+	public Scene getCreateReservationScene(){
+		
+		createReservationController=new CreateReservationController(modelAccess);
+		return initializeScene(CREATE_RES_FXML, createReservationController);
 		
 	}
 	

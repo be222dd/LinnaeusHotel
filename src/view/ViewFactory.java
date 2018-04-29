@@ -38,7 +38,7 @@ public class ViewFactory {
 			mainController = new MainController(modelAccess);
 			return initializeScene(MAIN_SCREEN_FXML, mainController);
 		}else{
-			throw new OperationNotSupportedException("Main Scene Already Initiliazed");
+			throw new OperationNotSupportedException("Main Scene Already Initialized");
 		}
 		
 	}

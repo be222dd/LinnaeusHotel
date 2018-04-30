@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="241.0" layoutY="173.0" mnemonicParsing="false" text="Button" />
+      <JFXListView fx:id="todaysDeparturesListView" layoutX="750.0" layoutY="478.0" prefHeight="273.0" prefWidth="350.0" />
+      <JFXListView fx:id="todaysArrivalsListView" layoutX="749.0" layoutY="195.0" prefHeight="282.0" prefWidth="350.0" />
+      <AnchorPane layoutX="1.0" layoutY="151.0" prefHeight="46.0" prefWidth="751.0">
+         <children>
+            <JFXDatePicker fx:id="departureDatePicker" layoutX="422.0" layoutY="9.0" />
+            <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="639.0" layoutY="10.0" ripplerFill="#b51919" style="-fx-background-color: #009688;" text="Search" />
+            <Label layoutX="41.0" layoutY="10.0" prefHeight="27.0" prefWidth="107.0" text="Show:">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <JFXDatePicker fx:id="arrivalDatePicker" layoutX="187.0" layoutY="9.0" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="RoomTable" layoutX="-7.0" layoutY="195.0" prefHeight="555.0" prefWidth="751.0">
+        <columns>
+          <TableColumn fx:id="roomNumberCol" prefWidth="143.99996948242188" text="Room Number" />
+            <TableColumn fx:id="roomPriceCol" prefWidth="84.0" text="Price" />
+            <TableColumn fx:id="bedNumberCol" prefWidth="69.0" text="Bed" />
+            <TableColumn fx:id="isSmokingCol" prefWidth="64.0" text="Smoking" />
+            <TableColumn fx:id="roomSizeCol" prefWidth="74.0" text="Room Size" />
+            <TableColumn fx:id="viewCol" prefWidth="58.0" text="View" />
+            <TableColumn fx:id="campusCol" prefWidth="73.0" text="Campus" />
+            <TableColumn fx:id="availabilityCol" prefWidth="184.0" text="Availablitiy" />
+        </columns>
+      </TableView>
+      <Label layoutX="859.0" layoutY="197.0" text="Todays Arrivals" />
+      <Label layoutX="846.0" layoutY="484.0" text="Todays Check-outs" />
+      <JFXButton fx:id="reserveButton" layoutX="35.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Reserve" />
+      <JFXButton fx:id="reportButton" layoutX="954.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Reports" />
+      <JFXButton fx:id="printBillButton" layoutX="574.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Print Bill" />
+      <JFXButton fx:id="checkOutButton" layoutX="394.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Check-out" />
+      <JFXButton fx:id="checkInButton" layoutX="206.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Check-in" />
+      <JFXButton fx:id="searchGuestButton" layoutX="762.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Search Guest" />
    </children>
 </AnchorPane>

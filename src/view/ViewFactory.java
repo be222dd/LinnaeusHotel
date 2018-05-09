@@ -5,8 +5,11 @@ package view;
 import javax.naming.OperationNotSupportedException;
 
 import controller.AbstractController;
-import controller.ReservationController;
+import controller.CreateReservatinController;
+import controller.SerachReservationController;
 import controller.MainController;
+import controller.ManagerAddEditWindowController;
+import controller.ManagerWindowController;
 import controller.ModelAccess;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,14 +25,21 @@ public class ViewFactory {
 	private ModelAccess modelAccess=new ModelAccess();
 	
 	private MainController mainController;
+	private SerachReservationController searchReservationController;
+	private CreateReservatinController createReservationController;
+	private ManagerWindowController managerWindowController;
+	private ManagerAddEditWindowController addEditRoomWindowController;
 	
-	private ReservationController ReservationController;
 	
 	
 	private final String DEFAULT_CSS="style.css";
 	
 	private final String MAIN_SCREEN_FXML="MainLayout.fxml";
-	private final String CREATE_RES_FXML="reservationLayout.fxml";
+	private final String RES_LAYOUT_FXML="reservationLayout.fxml";
+	private final String CREATE_RES_FXML="CreateReservationLayout.fxml";
+	private final String MAN_WIND_FXML="managerWindowLayout.fxml";
+	private final String MAN_ADD_EDIT_FXML="managerEditorAddRoom.fxml";
+	
 	
 	
 	public Scene getMainScene() throws OperationNotSupportedException{
@@ -43,10 +53,30 @@ public class ViewFactory {
 		
 	}
 	
+	public Scene getReservationLayoutScene(){
+		
+		searchReservationController=new SerachReservationController(modelAccess);
+		return initializeScene(RES_LAYOUT_FXML,searchReservationController);
+		
+	}
+	
 	public Scene getCreateReservationScene(){
 		
-		ReservationController=new ReservationController(modelAccess);
-		return initializeScene(CREATE_RES_FXML,ReservationController);
+		createReservationController=new CreateReservatinController(modelAccess);
+		return initializeScene(CREATE_RES_FXML,createReservationController);
+		
+	}
+	
+	public Scene getManagerWindowScene(){
+		
+		managerWindowController=new ManagerWindowController(modelAccess);
+		return initializeScene(MAN_WIND_FXML,managerWindowController);
+		
+	}
+	
+	public Scene getAddEditRoomWindow(){
+		addEditRoomWindowController=new ManagerAddEditWindowController(modelAccess);
+		return initializeScene(MAN_ADD_EDIT_FXML, addEditRoomWindowController);
 		
 	}
 	

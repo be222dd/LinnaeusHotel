@@ -12,6 +12,17 @@ public class Guest {
 	private String idType;
 	private String idNumber;
 	
+	public Guest(String firstName, String lastName, Date dateOfBirth, String email, String phoneNumber, String idType,
+			String idNumber) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.idType = idType;
+		this.idNumber = idNumber;
+	}
+	
 	
 	public String getFirstName() {
 		return firstName;

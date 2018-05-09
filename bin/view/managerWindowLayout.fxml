@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="RoomTable" layoutX="30.0" layoutY="48.0" prefHeight="445.0" prefWidth="751.0">
+         <columns>
+            <TableColumn fx:id="roomNumberCol" prefWidth="143.99996948242188" text="Room Number" />
+            <TableColumn fx:id="roomPriceCol" prefWidth="84.0" text="Price" />
+            <TableColumn fx:id="bedNumberCol" prefWidth="87.0" text="Bed" />
+            <TableColumn fx:id="isSmokingCol" prefWidth="90.0" text="Smoking" />
+            <TableColumn fx:id="roomSizeCol" prefWidth="117.0" text="Room Size" />
+            <TableColumn fx:id="viewCol" prefWidth="111.0" text="View" />
+            <TableColumn fx:id="campusCol" prefWidth="117.0" text="Campus" />
+         </columns>
+         <contextMenu>
+            <ContextMenu>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleEditRoomAction" text="Edit Room" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDeleteAction" text="Delete Room" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleAddRoomAction" text="Add Room" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+   </children>
+</AnchorPane>

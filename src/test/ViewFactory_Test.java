@@ -45,7 +45,7 @@ public class ViewFactory_Test
     public void getCreateReservationSceneReturnTest()
     {
         ViewFactory vf = ViewFactory.defaultFactory;
-        Object resultReservation = vf.getCreateReservationScene();
+        Object resultReservation = vf.getReservationLayoutScene();
         assertTrue(resultReservation instanceof Scene);
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="63.0" layoutY="42.0" text="Room Number" />
+      <JFXTextField fx:id="roomPriceTextField" layoutX="183.0" layoutY="68.0" />
+      <Label layoutX="63.0" layoutY="80.0" text="Room price" />
+      <Label layoutX="63.0" layoutY="114.0" text="bedNumber" />
+      <Label layoutX="46.0" layoutY="184.0" text="smokingStatus" />
+      <Label layoutX="53.0" layoutY="314.0" text="campus" />
+      <Label layoutX="77.0" layoutY="270.0" text="view" />
+      <Label layoutX="62.0" layoutY="223.0" text="roomSize" />
+      <JFXTextField fx:id="roomNumberTextField" layoutX="183.0" layoutY="38.0" />
+      <JFXTextField fx:id="bedNumberTextField" layoutX="183.0" layoutY="102.0" />
+      <ChoiceBox fx:id="campusChoiceBox" layoutX="163.0" layoutY="318.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="viewChoiceBox" layoutX="169.0" layoutY="265.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="roomSizeChoiceBox" layoutX="163.0" layoutY="227.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="smokingChoiceBox" layoutX="169.0" layoutY="179.0" prefWidth="150.0" />
+      <JFXButton fx:id="addButton" layoutX="78.0" layoutY="390.0" onAction="#handleAddRoomRequest" style="-fx-background-color: green;" text="ADD" />
+      <JFXButton fx:id="editButton" layoutX="209.0" layoutY="390.0" onAction="#handleEditRoomRequest" text="EDIT" />
+      <Label layoutX="65.0" layoutY="146.0" text="Adjoints to" />
+      <JFXTextField fx:id="adjointsToTextField" layoutX="169.0" layoutY="142.0" />
+   </children>
+</AnchorPane>

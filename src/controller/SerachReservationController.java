@@ -14,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class ReservationController extends AbstractController implements Initializable {
+public class SerachReservationController extends AbstractController implements Initializable {
 	
 	@FXML
     private TextField roomNumberTextField;
@@ -94,7 +94,7 @@ public class ReservationController extends AbstractController implements Initial
     @FXML
     private ChoiceBox<String> roomSizeChoiceBox;
 
-	public ReservationController(ModelAccess modelAccess) {
+	public SerachReservationController(ModelAccess modelAccess) {
 		super(modelAccess);
 		// TODO Auto-generated constructor stub
 	}

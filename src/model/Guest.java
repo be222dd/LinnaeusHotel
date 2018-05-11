@@ -67,6 +67,11 @@ public class Guest {
 		this.idNumber = idNumber;
 	}
 	
+	@Override
+	public String toString() {
+		return this.firstName+" "+this.lastName;
+	}
+	
 	
 	
 

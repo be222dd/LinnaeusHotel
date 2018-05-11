@@ -19,10 +19,10 @@ public class DBConnect {
 	
 	// init database constants
 	private static final String URL = "jdbc:mysql://sql7.freesqldatabase.com:3306/";
-    private static final String DB_NAME = "sql7236051";
+    private static final String DB_NAME = "sql7237521";
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_USER = "sql7236051"; 
-	private static final String DB_PASSWORD = "MuB8kvtiZp";
+	private static final String DB_USER = "sql7237521"; 
+	private static final String DB_PASSWORD = "zQGcXlDeEJ";
 
 	// init connection object
 	private Connection connection = null;

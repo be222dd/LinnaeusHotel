@@ -6,11 +6,12 @@ import javax.naming.OperationNotSupportedException;
 
 import controller.AbstractController;
 import controller.CreateReservatinController;
-import controller.SerachReservationController;
+import controller.oldSerachReservationController;
 import controller.MainController;
 import controller.ManagerAddEditWindowController;
 import controller.ManagerWindowController;
 import controller.ModelAccess;
+import controller.SearchReservationController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,10 +26,11 @@ public class ViewFactory {
 	private ModelAccess modelAccess=new ModelAccess();
 	
 	private MainController mainController;
-	private SerachReservationController searchReservationController;
+	private oldSerachReservationController oldSearchReservationController;
 	private CreateReservatinController createReservationController;
 	private ManagerWindowController managerWindowController;
 	private ManagerAddEditWindowController addEditRoomWindowController;
+	private SearchReservationController searchReservationController;
 	
 	
 	
@@ -39,6 +41,7 @@ public class ViewFactory {
 	private final String CREATE_RES_FXML="CreateReservationLayout.fxml";
 	private final String MAN_WIND_FXML="managerWindowLayout.fxml";
 	private final String MAN_ADD_EDIT_FXML="managerEditorAddRoom.fxml";
+	private final String SEARCH_RES_FXML="searchReservationLayout.fxml";
 	
 	
 	
@@ -55,8 +58,8 @@ public class ViewFactory {
 	
 	public Scene getReservationLayoutScene(){
 		
-		searchReservationController=new SerachReservationController(modelAccess);
-		return initializeScene(RES_LAYOUT_FXML,searchReservationController);
+		oldSearchReservationController=new oldSerachReservationController(modelAccess);
+		return initializeScene(RES_LAYOUT_FXML,oldSearchReservationController);
 		
 	}
 	
@@ -77,6 +80,12 @@ public class ViewFactory {
 	public Scene getAddEditRoomWindow(){
 		addEditRoomWindowController=new ManagerAddEditWindowController(modelAccess);
 		return initializeScene(MAN_ADD_EDIT_FXML, addEditRoomWindowController);
+		
+	}
+	
+	public Scene getSearchReservationWindow(){
+		searchReservationController=new SearchReservationController(modelAccess);
+		return initializeScene(SEARCH_RES_FXML,searchReservationController);
 		
 	}
 	

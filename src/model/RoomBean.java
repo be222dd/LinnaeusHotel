@@ -81,6 +81,20 @@ public class RoomBean {
 	public void setView(String view) {
 		this.view = new SimpleStringProperty(view);
 	}
+	
+	public String getAdjointsTo(){
+		return adjointsTo.get();
+	}
+	
+	public void setAdjointsTo(String adjointsTo){
+		this.adjointsTo=new SimpleStringProperty(adjointsTo);
+	}
+	
+	@Override
+	public String toString() {
+		
+		return this.roomNumber.get();
+	}
 
 	
 

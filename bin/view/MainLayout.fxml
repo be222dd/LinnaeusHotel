@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
@@ -15,8 +14,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="749.0" prefWidth="1143.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXListView fx:id="todaysDeparturesListView" layoutX="769.0" layoutY="477.0" prefHeight="273.0" prefWidth="350.0" />
-      <JFXListView fx:id="todaysArrivalsListView" layoutX="769.0" layoutY="164.0" prefHeight="282.0" prefWidth="350.0" />
       <AnchorPane layoutX="18.0" layoutY="151.0" prefHeight="138.0" prefWidth="734.0">
          <children>
             <JFXDatePicker fx:id="departureDatePicker" layoutX="422.0" layoutY="9.0" />
@@ -38,7 +35,7 @@
             <TableColumn fx:id="roomSizeCol" prefWidth="74.0" text="Room Size" />
             <TableColumn fx:id="viewCol" prefWidth="58.0" text="View" />
             <TableColumn fx:id="campusCol" prefWidth="73.0" text="Campus" />
-            <TableColumn fx:id="availabilityCol" prefWidth="184.0" text="Availablitiy" />
+            <TableColumn fx:id="adjointsToCol" prefWidth="184.0" text="Adjoints To" />
         </columns>
          <contextMenu>
             <ContextMenu>
@@ -50,7 +47,7 @@
       </TableView>
       <Label layoutX="869.0" layoutY="454.0" text="Todays Check-outs" />
       <JFXButton fx:id="reserveButton" layoutX="35.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Reserve" />
-      <JFXButton fx:id="searchReservationButton" layoutX="201.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Search &#10;Reservation" />
+      <JFXButton fx:id="searchReservationButton" layoutX="201.0" layoutY="47.0" onAction="#handleSearchReservationButton" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Search &#10;Reservation" />
       <JFXButton fx:id="printBillButton" layoutX="822.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Print Bill" />
       <JFXButton fx:id="checkOutButton" layoutX="681.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Check-out" />
       <JFXButton fx:id="checkInButton" layoutX="518.0" layoutY="47.0" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Check-in" />
@@ -62,5 +59,31 @@
       <ChoiceBox fx:id="roomSizeChoiceBox" layoutX="571.0" layoutY="207.0" prefWidth="150.0" />
       <JFXButton fx:id="managerButton" layoutX="993.0" layoutY="47.0" onAction="#handleManagerWindowButton" prefHeight="79.0" prefWidth="107.0" style="-fx-background-color: #009688;" text="Manager &#10;Window&#10;" />
       <Label layoutX="888.0" layoutY="143.0" text="Todays Check-ins" />
+      <TableView fx:id="checkInTable" layoutX="774.0" layoutY="164.0" prefHeight="279.0" prefWidth="345.0">
+        <columns>
+          <TableColumn fx:id="checkInGuestName" prefWidth="165.0" text="Guest Name" />
+          <TableColumn fx:id="checkInRoomNumber" prefWidth="179.0" text="Room Number" />
+        </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleCheckInContextMenuItem" text="Check In" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <TableView fx:id="checkOutTable" layoutX="777.0" layoutY="469.0" prefHeight="265.0" prefWidth="356.0">
+         <columns>
+            <TableColumn fx:id="checkOutGuestName" prefWidth="162.0" text="Guest Name" />
+            <TableColumn fx:id="checkOutRoomNumber" prefWidth="193.0" text="Room Number" />
+         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleCheckOutContextMenuItem" text="Check Out" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
    </children>
 </AnchorPane>

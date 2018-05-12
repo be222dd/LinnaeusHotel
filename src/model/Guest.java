@@ -11,6 +11,7 @@ public class Guest {
 	private String phoneNumber;
 	private String idType;
 	private String idNumber;
+	private int guestId;
 	
 	public Guest(String firstName, String lastName, Date dateOfBirth, String email, String phoneNumber, String idType,
 			String idNumber) {
@@ -67,6 +68,16 @@ public class Guest {
 		this.idNumber = idNumber;
 	}
 	
+	public int getGuestId() {
+		return guestId;
+	}
+
+
+	public void setGuestId(int guestId) {
+		this.guestId = guestId;
+	}
+
+
 	@Override
 	public String toString() {
 		return this.firstName+" "+this.lastName;

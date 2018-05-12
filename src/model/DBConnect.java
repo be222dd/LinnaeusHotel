@@ -23,7 +23,7 @@ public class DBConnect {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_USER = "sql7237521"; 
 	private static final String DB_PASSWORD = "zQGcXlDeEJ";
-
+	
 	// init connection object
 	private Connection connection = null;
 	
@@ -126,20 +126,23 @@ public class DBConnect {
 				
 				int columns = res.getMetaData().getColumnCount();
 				
-				while(res.next()) {
+				do {
 					
 					for  (int i = 1; i <= columns; i++) {
+						
 			        	resultArr.add(res.getObject(i));
 			        }
 					
-				} 
+				} while(res.next());
 				
 			} else {
 				
 				System.out.println("No records were found that match the specified criteria");
+				//TODO handle if does not match
+				
 			}
 			
-			//closeConnection();
+			closeConnection();
 			
 		} catch (Exception e) {
 
@@ -166,12 +169,12 @@ public class DBConnect {
 		        System.out.println("Table: " + res.getMetaData().getTableName(1));
 		        System.out.println();
 		        
-		        while (res.next()) {
+		        do {
 		        	for  (int i = 1; i <= columns; i++) {
 			        	System.out.print(res.getMetaData().getColumnName(i) + ": ");
 			        	System.out.println(res.getObject(i));
 			        }
-		        }
+		        } while (res.next());
 		        
 			} else {
 				

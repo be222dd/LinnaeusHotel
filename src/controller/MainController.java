@@ -288,6 +288,19 @@ public class MainController extends AbstractController implements Initializable 
 		stage.show();
 
     }
+	
+	@FXML
+    void handleSearchRoomButton(ActionEvent event) {
+		try {
+			getModelAccess().appDao.getReservationsByDate(arrivalDatePicker.getValue().toString(), departureDatePicker.getValue().toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+    }
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -13,8 +13,10 @@ public class RoomBean {
 	private SimpleStringProperty view;
 	private SimpleStringProperty campus;
 	private SimpleStringProperty adjointsTo;
+	private SimpleIntegerProperty roomId;
 	
-	public RoomBean(String roomNumber,int roomPrice,int bedNumber,String smokingStatus,String roomSize,String view,String campus,String adjointsTo ){
+	
+	public RoomBean(String roomNumber,int roomPrice,int bedNumber,String smokingStatus,String roomSize,String view,String campus,String adjointsTo,int roomId ){
 		this.roomNumber=new SimpleStringProperty(roomNumber);
 		this.roomPrice=new SimpleIntegerProperty(roomPrice);
 		this.bedNumber=new SimpleIntegerProperty(bedNumber);
@@ -23,7 +25,7 @@ public class RoomBean {
 		this.view=new SimpleStringProperty(view);
 		this.campus=new SimpleStringProperty(campus);
 		this.adjointsTo=new SimpleStringProperty(adjointsTo);
-		
+		this.roomId= new SimpleIntegerProperty(roomId);
 	}
 
 	public String getCampus() {
@@ -89,6 +91,16 @@ public class RoomBean {
 	public void setAdjointsTo(String adjointsTo){
 		this.adjointsTo=new SimpleStringProperty(adjointsTo);
 	}
+	
+	public int getRoomId() {
+		return roomId.get();
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId=new SimpleIntegerProperty(roomId);
+	}
+	
+	
 	
 	@Override
 	public String toString() {

@@ -54,7 +54,7 @@ public class ManagerAddEditWindowController extends AbstractController implement
 	
 	 	@FXML
 	    void handleAddRoomRequest(ActionEvent event) {
-	 		RoomBean room=new RoomBean(roomNumberTextField.getText(), Integer.parseInt(roomPriceTextField.getText()), Integer.parseInt(bedNumberTextField.getText()), smokingChoiceBox.getValue(), roomSizeChoiceBox.getValue(), viewChoiceBox.getValue(), campusChoiceBox.getValue(),adjointsToTextField.getText());
+	 		RoomBean room=new RoomBean(roomNumberTextField.getText(), Integer.parseInt(roomPriceTextField.getText()), Integer.parseInt(bedNumberTextField.getText()), smokingChoiceBox.getValue(), roomSizeChoiceBox.getValue(), viewChoiceBox.getValue(), campusChoiceBox.getValue(),adjointsToTextField.getText(),2);
 	    }
 
 	    @FXML

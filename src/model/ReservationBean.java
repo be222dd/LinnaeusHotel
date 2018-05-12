@@ -12,6 +12,7 @@ public class ReservationBean {
 	private Date endDate;
 	private boolean isCheckedIn;
 	private boolean isCheckedOut;
+	private int reservationId;
 	
 	public ReservationBean(RoomBean room, Guest guest, Date startDate, Date endDate,boolean isCheckedIn,boolean isCheckedOut) {
 		this.room = room;
@@ -68,6 +69,14 @@ public class ReservationBean {
 
 	public void setCheckedOut(boolean isCheckedOut) {
 		this.isCheckedOut = isCheckedOut;
+	}
+
+	public int getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
 	}
 	
 	

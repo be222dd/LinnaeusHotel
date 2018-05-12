@@ -10,12 +10,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AppDAO {
-	
 DBConnect con = new DBConnect();
 	
 	public ObservableList<RoomBean> getAllRooms() {
-		//should get and return all rooms as observable list
-		
+				
 		ObservableList<RoomBean> list = FXCollections.observableArrayList();
 		
 		String get_rooms_query = "SELECT hotel.city, room.room_id, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, room.adjointsTo "
@@ -24,58 +22,56 @@ DBConnect con = new DBConnect();
 				+ "ORDER BY hotel.city"; 
 		
 		ResultSet res;
+		
 		try {
+			
 			res = con.retrieveData(get_rooms_query);
 			while(res.next()){
-									
-				String roomNumber= Integer.toString(res.getInt("room_number"));
-					
-	           list.add(new RoomBean(roomNumber, res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo")));
-	            
+	
+	           list.add(new RoomBean(res.getString("room_number"), res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo"),res.getInt("room_id")));
 	            
 	        }
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		
-		System.out.println(list.size()+"++++++++++++++++++++++");
-		
-		
-		
 		return list;
 	}
-	/*
-	public ObservableList<RoomBean> getRoomsWithCriteria(int bedNumber,String smokingStatus,String roomSize,String view, String campus) throws Exception{
+	
+	public ObservableList<RoomBean> getRoomsWithCriteria(int bedNumber,String smokingStatus,String roomSize,String view, String campus) {
 	
 		ObservableList<RoomBean> list = FXCollections.observableArrayList();
 		
-		String get_room_query = "SELECT hotel.name, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view "
+		String get_room_query = "SELECT hotel.city, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, room.adjointsTo "
 				+ "FROM room "
 				+ "JOIN hotel ON hotel.hotel_id = room.hotel_id "
 				+ "WHERE beds = '" + bedNumber + "' AND " + "smoking = '" + smokingStatus + "' AND " + "room_size = '" + roomSize + "' AND " + "view = '" + view + "' AND " + "city = '" + campus + "' ";
 		
-		ResultSet res = con.retrieveData(get_room_query);
-		
-		while(res.next()){
-	           
-            ObservableList<String> row = FXCollections.observableArrayList();
-            for(int i=1 ; i<=res.getMetaData().getColumnCount(); i++){
-               
-                row.add(res.getString(i));
-            }
-            
-            list.add(row);
-        }
-		
+		ResultSet res;
+		try {
+			res = con.retrieveData(get_room_query);
+			
+			while(res.next()){
+				
+				list.add(new RoomBean(res.getString("room_number"), res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo"),res.getInt("room_id")));
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return list; 
 	}
 	
-	public ObservableList<ReservationBean> getReservationsByDate(Date start, Date end) throws Exception{
+	public ObservableList<ReservationBean> getReservationsByDate(String start, String end) throws Exception{
 		
-		ObservableList<ReservationBean> list = FXCollections.observableArrayList();
+		ObservableList<ReservationBean> reservationList = FXCollections.observableArrayList();
 		
-		String get_reservations_query = "SELECT guest.first_name, guest.last_name, hotel.name, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, arrival_date, departure_date "
+		String get_reservations_query = "SELECT guest.first_name, guest.last_name, hotel.city, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, room.adjointsTo, arrival_date, departure_date "
 				+ "FROM reservation "
 				+ "JOIN guest ON guest.guest_id = reservation.guest_id "
 				+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
@@ -83,69 +79,30 @@ DBConnect con = new DBConnect();
 				+ "WHERE reservation.arrival_date >= '" + start + "' AND " + "reservation.departure_date <= '" + end + "' "
 						+ "ORDER BY reservation.arrival_date";
 		
-		ResultSet res = con.retrieveData(get_reservations_query);
+		ResultSet res;
+		try {
+			res = con.retrieveData(get_reservations_query);
+			
+			while(res.next()){
+				
+				RoomBean room = new RoomBean(res.getString("room_number"), res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo"),res.getInt("room_id"));
+				Guest guest = new Guest(res.getString("first_name"), res.getString("last_name"), res.getDate("date_of_birth"), res.getString("email"), res.getString("phone"), res.getString("id_type"), res.getString("id_number"));
+				
+				reservationList.add(new ReservationBean(room, guest, res.getDate("arrival_date"), res.getDate("departure_date"), res.getBoolean("isCheckedIN"), res.getBoolean("isCheckedOut")));
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		while(res.next()){
-	           
-            ObservableList<String> row = FXCollections.observableArrayList();
-            for(int i=1 ; i<=res.getMetaData().getColumnCount(); i++){
-               
-                row.add(res.getString(i));
-            }
-            
-            list.add(row);
-        }
-		
-		return list; 
+		System.out.println(reservationList.size()+"???????????????????");
+	
+		return reservationList; 
 		
 	}
 	
-	public ReservationBean getReservationByGuestNameandDates(String guestName,String surname,String idNumber,Date start,Date end) throws Exception{
-		
-		
-		System.out.println(start);
-		
-		String get_reservation_query = "SELECT room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, hotel.name, room.adjointsTo, "
-				+ "guest.first_name, guest.last_name, guest.date_of_birth, guest.email, guest.phone, guest.id_type, guest.id_number, "
-				+ "reservation.arrival_date, reservation.departure_date, reservation.isCheckedIn, reservation.isCheckedOut "
-				+ "FROM reservation "
-				+ "JOIN guest ON guest.guest_id = reservation.guest_id "
-				+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
-				+ "JOIN room ON room.room_id = reservation.room_id "
-				+ "WHERE first_name = '" + guestName + "' AND " + "last_name = '" + surname + "' AND " + "id_number = '" + idNumber + "' AND " + "arrival_date = '" + start + "' AND " + "departure_date = '" + end + "'";
-		
-		ArrayList<Object> reservationArrList = con.getArrData(get_reservation_query);
-		
-		System.out.println("size of this "+reservationArrList.size());
-		
-		String roomNumber = (String) reservationArrList.get(0);
-		int roomPrice = (int) reservationArrList.get(1);
-		int bedNumber = (int) reservationArrList.get(2);
-		String smokingStatus = (String) reservationArrList.get(3);
-		String roomSize = (String) reservationArrList.get(4);
-		String view = (String) reservationArrList.get(5);
-		String campus = (String) reservationArrList.get(6);
-		String adjointsTo = (String) reservationArrList.get(7);
-		
-		String firstName = (String) reservationArrList.get(8);
-		String lastName = (String) reservationArrList.get(9);
-		Date dateOfBirth = (Date) reservationArrList.get(10);
-		String email = (String) reservationArrList.get(11);
-		String phoneNumber = (String) reservationArrList.get(12);
-		String idType = (String) reservationArrList.get(13);
-		String idNum = (String) reservationArrList.get(14);
-		Date startDate = (Date) reservationArrList.get(15);
-		Date endDate = (Date) reservationArrList.get(16);
-		boolean isCheckedIn = (boolean) reservationArrList.get(17);
-		boolean isCheckedOut = (boolean) reservationArrList.get(18);
-		
-		RoomBean room = new RoomBean(roomNumber, roomPrice, bedNumber, smokingStatus, roomSize, view, campus, adjointsTo);
-		Guest guest = new Guest(firstName, lastName, dateOfBirth, email, phoneNumber, idType, idNum);
-		
-		ReservationBean reservation = new ReservationBean(room, guest, startDate, endDate, isCheckedIn, isCheckedOut);
-		return reservation;
-	}
-	/*
+	
 	public Guest findGuest(String guestName,String surname,String idNumber) throws Exception{
 		
 		String guest_search_query = "SELECT first_name, last_name, date_of_birth, email, phone, id_type, id_number "
@@ -171,11 +128,24 @@ DBConnect con = new DBConnect();
 		//so we need to add additional field or selection for the hotel ID, also updating and deleting rooms requires room ID that gets automatically 
 		//assigned to a room after it's been created
 		
+		int hotelId;
+		if(room.getCampus()=="Kalmar"){
+			hotelId=1;
+		}else{
+			hotelId=2;
+		}
+		
+		
 		
 		String create_room_query = "INSERT INTO room (hotel_id, room_number, price, beds, smoking, room_size, view) "
-				+ "VALUES ('" + room.getHotelId() + "','" + room.getRoomNumber() + "','"+ room.getRoomPrice() + "','" + room.getBedNumber() + "','"+ room.getSmokingStatus() + "','"+ room.getRoomSize() + "','" + room.getView() + "','"+ room.getAdjointsTo() +"')";
+				+ "VALUES ('" + hotelId + "','" + room.getRoomNumber() + "','"+ room.getRoomPrice() + "','" + room.getBedNumber() + "','"+ room.getSmokingStatus() + "','"+ room.getRoomSize() + "','" + room.getView() + "','"+ room.getAdjointsTo() +"')";
 		
-		con.updateData(create_room_query);
+		try {
+			con.updateData(create_room_query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -187,7 +157,12 @@ DBConnect con = new DBConnect();
 				+ "beds = '" + room.getBedNumber() + "', smoking = '" + room.getSmokingStatus() + "', room_size = '" + room.getRoomSize() + "', view = '" + room.getView() + "', adjointsTo = '" + room.getAdjointsTo() +"'"
 									+ "WHERE room_id = '"+ room.getRoomId() + "'"; 
 		
-		con.updateData(update_room_query);
+		try {
+			con.updateData(update_room_query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   
 	}
 	
@@ -196,69 +171,83 @@ DBConnect con = new DBConnect();
 		// deleting rooms requires the room ID's value (TODO: room.getRoomId() in RoomBean)
 		
 		String delete_room_query = "DELETE FROM room WHERE room_id = " + room.getRoomId();
-		con.updateData(delete_room_query);
+		try {
+			con.updateData(delete_room_query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	}*/
+	}
+	
+	public ReservationBean getReservationByGuestNameandDates(String guestName,String surname,String idNumber,String start,String end) throws Exception{
+		//TODO: how to handle if no reservation found (there are no matches)
+		
+				//String startDate = convertStringToDate(start);
+				//String endDate = convertStringToDate(end);
+				System.out.println(start);
+				System.out.println(end);
+				//String get_reservation_query = "SELECT * FROM room";
+				
+				String get_reservation_query = "SELECT room.room_id, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, hotel.name, room.adjointsTo, "
+						+ "guest.first_name, guest.last_name, guest.date_of_birth, guest.email, guest.phone, guest.id_type, guest.id_number, "
+						+ "reservation.arrival_date, reservation.departure_date, reservation.isCheckedIn, reservation.isCheckedOut "
+						+ "FROM reservation "
+						+ "JOIN guest ON guest.guest_id = reservation.guest_id "
+						+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
+						+ "JOIN room ON room.room_id = reservation.room_id "
+						+ "WHERE first_name = '" + guestName + "' AND " + "last_name = '" + surname + "' AND " + "id_number = '" + idNumber + "' AND " + "arrival_date = '" + start + "' AND " + "departure_date = '" + end + "'";
+				
+			
+				ArrayList<Object> reservationArrList = con.getArrData(get_reservation_query);
+				
+				for (int i = 0; i < reservationArrList.size(); i++) {
+			        System.out.println(reservationArrList.get(i));
+			    }
+				
+				int roomId = (int) reservationArrList.get(0);
+				String roomNumber = reservationArrList.get(1).toString();
+				int roomPrice = (int) reservationArrList.get(2);
+				int bedNumber = (int) reservationArrList.get(3);
+				String smokingStatus = (String) reservationArrList.get(4);
+				String roomSize = (String) reservationArrList.get(5);
+				String view = (String) reservationArrList.get(6);
+				String campus = (String) reservationArrList.get(7);
+				String adjointsTo = (String) reservationArrList.get(8);
+				
+				String firstName = (String) reservationArrList.get(9);
+				String lastName = (String) reservationArrList.get(10);
+				Date dateOfBirth = (Date) reservationArrList.get(11);
+				String email = (String) reservationArrList.get(12);
+				String phoneNumber = (String) reservationArrList.get(13);
+				String idType = (String) reservationArrList.get(14);
+				String idNum = (String) reservationArrList.get(15);
+				Date start_date = (Date) reservationArrList.get(16);
+				Date end_date = (Date) reservationArrList.get(17);
+				boolean isCheckedIn = (boolean) reservationArrList.get(18);
+				boolean isCheckedOut = (boolean) reservationArrList.get(19);
+				
+				RoomBean room = new RoomBean(roomNumber, roomPrice, bedNumber, smokingStatus, roomSize, view, campus, adjointsTo,1);
+				Guest guest = new Guest(firstName, lastName, dateOfBirth, email, phoneNumber, idType, idNum);
+				
+				ReservationBean reservation = new ReservationBean(room, guest, start_date, end_date, isCheckedIn, isCheckedOut);
+				return reservation;	
+	}
+	
 	public String convertStringToDate(Date date)
 	{
 	   String dateString = null;
 	   SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
 	   
 	   try{
+		   
 		dateString = sdfr.format( date );
-		System.out.println(dateString);
+
 	   }catch (Exception ex ){
 		System.out.println(ex);
 	   }
 	   return dateString;
 	}
 	
-	public ReservationBean getReservationByGuestNameandDates(String guestName,String surname,String idNumber,String start,String end) throws Exception{
-		
-		//String startDate = convertStringToDate(start);
-		//String endDate = convertStringToDate(end);
-		System.out.println(start);
-		System.out.println(end);
-		String get_reservation_query = "SELECT room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, hotel.name, room.adjointsTo, "
-				+ "guest.first_name, guest.last_name, guest.date_of_birth, guest.email, guest.phone, guest.id_type, guest.id_number, "
-				+ "reservation.arrival_date, reservation.departure_date, reservation.isCheckedIn, reservation.isCheckedOut "
-				+ "FROM reservation "
-				+ "JOIN guest ON guest.guest_id = reservation.guest_id "
-				+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
-				+ "JOIN room ON room.room_id = reservation.room_id "
-				+ "WHERE first_name = '" + guestName + "' AND " + "last_name = '" + surname + "' AND " + "id_number = '" + idNumber + "' AND " + "arrival_date = '" + start + "' AND " + "departure_date = '" + end + "'";
-		
-		ArrayList<Object> reservationArrList = con.getArrData(get_reservation_query);
-		
-		for (int i = 0; i < reservationArrList.size(); i++) {
-	        System.out.println(reservationArrList.get(i));
-	    }
-		
-		String roomNumber = (String) reservationArrList.get(0);
-		int roomPrice = (int) reservationArrList.get(1);
-		int bedNumber = (int) reservationArrList.get(2);
-		String smokingStatus = (String) reservationArrList.get(3);
-		String roomSize = (String) reservationArrList.get(4);
-		String view = (String) reservationArrList.get(5);
-		String campus = (String) reservationArrList.get(6);
-		String adjointsTo = (String) reservationArrList.get(7);
-		
-		String firstName = (String) reservationArrList.get(8);
-		String lastName = (String) reservationArrList.get(9);
-		Date dateOfBirth = (Date) reservationArrList.get(10);
-		String email = (String) reservationArrList.get(11);
-		String phoneNumber = (String) reservationArrList.get(12);
-		String idType = (String) reservationArrList.get(13);
-		String idNum = (String) reservationArrList.get(14);
-		Date start_date = (Date) reservationArrList.get(15);
-		Date end_date = (Date) reservationArrList.get(16);
-		boolean isCheckedIn = (boolean) reservationArrList.get(17);
-		boolean isCheckedOut = (boolean) reservationArrList.get(18);
-		
-		RoomBean room = new RoomBean(roomNumber, roomPrice, bedNumber, smokingStatus, roomSize, view, campus, adjointsTo);
-		Guest guest = new Guest(firstName, lastName, dateOfBirth, email, phoneNumber, idType, idNum);
-		
-		ReservationBean reservation = new ReservationBean(room, guest, start_date, end_date, isCheckedIn, isCheckedOut);
-		return reservation;
-	}
+
 }

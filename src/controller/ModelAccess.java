@@ -17,20 +17,20 @@ public class ModelAccess {
 	
 	//Dum trial Data
     final static ObservableList<RoomBean> data=FXCollections.observableArrayList(
-    		new RoomBean("101", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none"),
-    		new RoomBean("102", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","103"),
-    		new RoomBean("103", 100, 2, "Non Smoking Room", "Small Room", "Without View", "Vaxjo","102")
+    		new RoomBean("101", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none",1),
+    		new RoomBean("102", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","103",2),
+    		new RoomBean("103", 100, 2, "Non Smoking Room", "Small Room", "Without View", "Vaxjo","none",3)
     		);
     
     final static ObservableList<ReservationBean> checkInData=FXCollections.observableArrayList(
-    		new ReservationBean(new RoomBean("101", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none"), new Guest("alex","Son",null,null,null,null,null), null, null,false,false),
-    		new ReservationBean(new RoomBean("102", 100, 2, "Non Smoking Room", "Big Room", "View", "Kalmar","103"), new Guest("beysim","eryalmaz",null,null,null,null,null), null, null,false,false)
+    		new ReservationBean(new RoomBean("101", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none",1), new Guest("alex","Son",null,null,null,null,null), null, null,false,false),
+    		new ReservationBean(new RoomBean("102", 100, 2, "Non Smoking Room", "Big Room", "View", "Kalmar","103",2), new Guest("beysim","eryalmaz",null,null,null,null,null), null, null,false,false)
 
     		);
     
     final static ObservableList<ReservationBean> checkOutData=FXCollections.observableArrayList(
-    		new ReservationBean(new RoomBean("104", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none"), new Guest("Johan","Svensson",null,null,null,null,null), null, null,false,false),
-    		new ReservationBean(new RoomBean("105", 100, 2, "Non Smoking Room", "Big Room", "View", "Kalmar","103"), new Guest("Kemal","Ata",null,null,null,null,null), null, null,false,false)
+    		new ReservationBean(new RoomBean("104", 100, 2, "Non Smoking Room", "Big Room", "View", "Vaxjo","none",4), new Guest("Johan","Svensson",null,null,null,null,null), null, null,false,false),
+    		new ReservationBean(new RoomBean("105", 100, 2, "Non Smoking Room", "Big Room", "View", "Kalmar","103",5), new Guest("Kemal","Ata",null,null,null,null,null), null, null,false,false)
 
     		);
 	

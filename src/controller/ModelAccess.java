@@ -51,6 +51,8 @@ public class ModelAccess {
 		
 		try {
 			ReservationBean res=appDao.getReservationByGuestNameandDates("Carl", "Petersson", "923456781","2018-10-15", "2018-10-20");
+			res.setRoom(new RoomBean("105", 100, 2, "Non Smoking Room", "Big Room", "View", "Kalmar","103",5));
+			appDao.makeReservation(res);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

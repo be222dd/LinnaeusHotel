@@ -11,6 +11,35 @@ import javafx.collections.ObservableList;
 
 public class AppDAO {
 DBConnect con = new DBConnect();
+
+
+public void makeReservation(ReservationBean reservation){
+	//TODO: guestID in Guest.java, RoomID in RoomBean
+	Guest guest=reservation.getGuest();
+	RoomBean room=reservation.getRoom();
+	
+	int hotelId = 0;
+	Date reservationDate = new Date(System.currentTimeMillis());
+		
+	
+	if (room.getCampus() == "Kalmar") {
+		hotelId = 1;
+	} else if (room.getCampus() == "Växjö") {
+		hotelId = 2;
+	}
+	System.out.println("what is this"+reservation.isCheckedIn());
+	
+	String reservation_query = "INSERT INTO reservation (hotel_id, guest_id, arrival_date, departure_date, room_id, reservation_date, isCheckedIN, isCheckedOut) "
+			+ "VALUES ('" + hotelId + "','" + guest.getGuestId() + "','"+ reservation.getStartDate() + "','" + reservation.getEndDate() + "','"+ room.getRoomId() + "','"+ convertStringToDate(reservationDate) + "','"+ reservation.isCheckedIn() + "','"+ reservation.isCheckedOut() +"')";
+	
+	try {
+		con.updateData(reservation_query);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
 	
 	public ObservableList<RoomBean> getAllRooms() {
 				
@@ -71,7 +100,9 @@ DBConnect con = new DBConnect();
 		
 		ObservableList<ReservationBean> reservationList = FXCollections.observableArrayList();
 		
-		String get_reservations_query = "SELECT guest.first_name, guest.last_name, hotel.city, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, room.adjointsTo, arrival_date, departure_date "
+		String get_reservations_query = "SELECT guest.first_name, guest.last_name, guest.date_of_birth, guest.email, guest.phone, guest.id_type, "
+				+ "guest.id_number, hotel.city, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, room.adjointsTo, "
+				+ "arrival_date, departure_date, isCheckedIN, isCheckedOut "
 				+ "FROM reservation "
 				+ "JOIN guest ON guest.guest_id = reservation.guest_id "
 				+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
@@ -84,9 +115,10 @@ DBConnect con = new DBConnect();
 			res = con.retrieveData(get_reservations_query);
 			
 			while(res.next()){
+				System.out.println();
 				
-				RoomBean room = new RoomBean(res.getString("room_number"), res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo"),res.getInt("room_id"));
-				Guest guest = new Guest(res.getString("first_name"), res.getString("last_name"), res.getDate("date_of_birth"), res.getString("email"), res.getString("phone"), res.getString("id_type"), res.getString("id_number"));
+				RoomBean room = new RoomBean(res.getString("room_number"), res.getInt("price"), res.getInt("beds"), res.getString("smoking"), res.getString("room_size"), res.getString("view"), res.getString("city"), res.getString("adjointsTo"),1);
+				Guest guest = new Guest(res.getString("first_name"), res.getString("last_name"),res.getDate("date_of_birth"), res.getString("email"), res.getString("phone"), res.getString("id_type"), res.getString("id_number"));
 				
 				reservationList.add(new ReservationBean(room, guest, res.getDate("arrival_date"), res.getDate("departure_date"), res.getBoolean("isCheckedIN"), res.getBoolean("isCheckedOut")));
 			}

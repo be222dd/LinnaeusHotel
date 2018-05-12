@@ -96,7 +96,8 @@ public class ViewFactory {
 		Scene scene;
 		
 		try {
-			loader=new FXMLLoader(getClass().getResource(fxmlPath));
+			loader=new FXMLLoader();
+			loader.setLocation(getClass().getResource(fxmlPath));
 			loader.setController(controller);
 			parent=loader.load();
 			

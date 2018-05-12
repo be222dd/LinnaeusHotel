@@ -139,7 +139,7 @@ public class DBConnect {
 				System.out.println("No records were found that match the specified criteria");
 			}
 			
-			closeConnection();
+			//closeConnection();
 			
 		} catch (Exception e) {
 

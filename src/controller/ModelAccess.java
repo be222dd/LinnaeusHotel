@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Date;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.AppDAO;
@@ -42,6 +44,18 @@ public class ModelAccess {
 	}
 	
 	public ObservableList<RoomBean> getRoomList(){
+		@SuppressWarnings("deprecation")
+		Date sDate=new Date(2018, 9, 27);
+		@SuppressWarnings("deprecation")
+		Date eDate=new Date(2018, 9, 30);
+		
+		try {
+			ReservationBean res=appDao.getReservationByGuestNameandDates("Carl", "Petersson", "923456781","2018-10-15", "2018-10-20");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return appDao.getAllRooms();
 		
 	}

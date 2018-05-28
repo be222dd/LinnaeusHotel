@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,9 +29,10 @@ public void makeReservation(ReservationBean reservation){
 		hotelId = 2;
 	}
 	System.out.println("what is this"+reservation.isCheckedIn());
+
 	
 	String reservation_query = "INSERT INTO reservation (hotel_id, guest_id, arrival_date, departure_date, room_id, reservation_date, isCheckedIN, isCheckedOut) "
-			+ "VALUES ('" + hotelId + "','" + guest.getGuestId() + "','"+ reservation.getStartDate() + "','" + reservation.getEndDate() + "','"+ room.getRoomId() + "','"+ convertStringToDate(reservationDate) + "','"+ reservation.isCheckedIn() + "','"+ reservation.isCheckedOut() +"')";
+			+ "VALUES ('" + hotelId + "','" + guest.getGuestId() + "','"+ reservation.getStartDate() + "','" + reservation.getEndDate() + "','"+ room.getRoomId() + "','"+ convertStringToDate(reservationDate) + "',"+ reservation.isCheckedIn() + ","+ reservation.isCheckedOut() +")";
 	
 	try {
 		con.updateData(reservation_query);
@@ -223,7 +225,8 @@ public void makeReservation(ReservationBean reservation){
 				
 				String get_reservation_query = "SELECT room.room_id, room.room_number, room.price, room.beds, room.smoking, room.room_size, room.view, hotel.name, room.adjointsTo, "
 						+ "guest.first_name, guest.last_name, guest.date_of_birth, guest.email, guest.phone, guest.id_type, guest.id_number, "
-						+ "reservation.arrival_date, reservation.departure_date, reservation.isCheckedIn, reservation.isCheckedOut "
+						+ "reservation.arrival_date, reservation.departure_date, reservation.isCheckedIn, reservation.isCheckedOut, "
+						+ "guest.guest_id "
 						+ "FROM reservation "
 						+ "JOIN guest ON guest.guest_id = reservation.guest_id "
 						+ "JOIN hotel ON hotel.hotel_id = reservation.hotel_id "
@@ -258,9 +261,12 @@ public void makeReservation(ReservationBean reservation){
 				Date end_date = (Date) reservationArrList.get(17);
 				boolean isCheckedIn = (boolean) reservationArrList.get(18);
 				boolean isCheckedOut = (boolean) reservationArrList.get(19);
+
+				int guestId = (int)reservationArrList.get(20);
 				
 				RoomBean room = new RoomBean(roomNumber, roomPrice, bedNumber, smokingStatus, roomSize, view, campus, adjointsTo,1);
 				Guest guest = new Guest(firstName, lastName, dateOfBirth, email, phoneNumber, idType, idNum);
+				guest.setGuestId(guestId);
 				
 				ReservationBean reservation = new ReservationBean(room, guest, start_date, end_date, isCheckedIn, isCheckedOut);
 				return reservation;	
